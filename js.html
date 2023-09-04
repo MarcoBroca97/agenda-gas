@@ -1,3 +1,72 @@
 <script>
-    
+    function crearTablaContactos() //Se activa al presionar el boton Mostrar Contactos
+    {
+        let tabla = document.getElementById("tablaContactos"); //Checamos si existe la tabla llamandola por su ID
+        if(tabla) tabla.remove(); //Si la tabla existe la eliminamos (porque es la versión antigua de la tabla)
+
+        google.script.run.withSuccessHandler( //Al recuperar de manera exitosa la info de google sheet
+            function(obj)
+            {
+                tabla = document.createElement("table");
+                tabla.id="tablaContactos" //Generamos un ID cuando se crea la tabla para poder checar si ya existe
+                let tHeader = document.createElement("thead")
+                let tablaBody = document.createElement("tbody");
+
+                for(let i = 0; i < obj.length; i++)
+                {
+                    let fila = document.createElement("tr");
+                    for(let j = 0; j < obj[i].length; j++)
+                    {
+                        let celda = document.createElement("td");
+                        celda.textContent = obj[i][j];
+                        fila.appendChild(celda);
+                    }
+
+                    if(i==0)
+                    {
+                        tHeader.appendChild(fila); 
+                        tabla.appendChild(tHeader);
+                    }
+                    // Si la fila no es encabezado se agrega al cuerpo de la tabla
+                    else
+                    {
+                        tablaBody.appendChild(fila);
+                    }
+                }
+
+                // Array.from(obj).forEach((filaActual, i) =>
+                // {
+                //     let fila = document.createElement("tr");
+                //     filaActual.forEach(celdaActual =>
+                //     {
+                //         let celda = document.createElement("td");
+                //         celda.textContent = celdaActual;
+                //         fila.appendChild(celda);
+                        
+                //     });
+                //     // Checamos si la fila es el encabezado y la agregamos al encabezado
+                //     if(i==0)
+                //     {
+                //         tHeader.appendChild(fila); 
+                //         tabla.appendChild(tHeader);
+                //     }
+                //     // Si la fila no es encabezado se agrega al cuerpo de la tabla
+                //     else
+                //     {
+                //         tablaBody.appendChild(fila);
+                //     }
+                    
+                // });
+                // Agrgamos clases al encabezado
+                tHeader.classList.add('table-dark', 'align-middle');
+                // Agregamos el cuerpo a la Tabla
+                tabla.appendChild(tablaBody);
+                // Agregamos clases a la tabla
+                tabla.classList.add('table', 'table-striped', 'border', 'border-3', "align-middle");
+                // Agregamos tabala a la página
+                document.getElementById("divContactos").appendChild(tabla);
+            }
+        ).obtenerContactos(); //Va a funciones.js y extrae la información de la pagina de google sheet
+    }
+
 </script>
