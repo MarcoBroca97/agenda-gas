@@ -12,7 +12,19 @@
                 let tHeader = document.createElement("thead")
                 let tablaBody = document.createElement("tbody");
 
-                for(let i = 0; i < obj.length; i++)
+                // Creamos en el encabezado recorriendo unicamente las columnas de la fila 1
+                let primeraFila = document.createElement("tr");
+                for(i=0; i<obj[0].length; i++)
+                {
+                    let celda = document.createElement("td");
+                    celda.textContent = obj[0][i];
+                    primeraFila.appendChild(celda);
+                }
+                tHeader.appendChild(primeraFila); 
+                tabla.appendChild(tHeader);
+
+                // Recorremos las filas del body de la tabla
+                for(let i = 1; i < obj.length; i++)
                 {
                     let fila = document.createElement("tr");
                     for(let j = 0; j < obj[i].length; j++)
@@ -21,42 +33,9 @@
                         celda.textContent = obj[i][j];
                         fila.appendChild(celda);
                     }
-
-                    if(i==0)
-                    {
-                        tHeader.appendChild(fila); 
-                        tabla.appendChild(tHeader);
-                    }
-                    // Si la fila no es encabezado se agrega al cuerpo de la tabla
-                    else
-                    {
-                        tablaBody.appendChild(fila);
-                    }
+                    tablaBody.appendChild(fila);
                 }
 
-                // Array.from(obj).forEach((filaActual, i) =>
-                // {
-                //     let fila = document.createElement("tr");
-                //     filaActual.forEach(celdaActual =>
-                //     {
-                //         let celda = document.createElement("td");
-                //         celda.textContent = celdaActual;
-                //         fila.appendChild(celda);
-                        
-                //     });
-                //     // Checamos si la fila es el encabezado y la agregamos al encabezado
-                //     if(i==0)
-                //     {
-                //         tHeader.appendChild(fila); 
-                //         tabla.appendChild(tHeader);
-                //     }
-                //     // Si la fila no es encabezado se agrega al cuerpo de la tabla
-                //     else
-                //     {
-                //         tablaBody.appendChild(fila);
-                //     }
-                    
-                // });
                 // Agrgamos clases al encabezado
                 tHeader.classList.add('table-dark', 'align-middle');
                 // Agregamos el cuerpo a la Tabla
