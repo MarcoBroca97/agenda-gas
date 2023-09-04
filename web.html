@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Scriptlet del contenido CSS y Boostrap -->
+    <?!= obtenerDatosHTML("css"); ?>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Scriptlet del contenido header -->
+    <?!= obtenerDatosHTML("header"); ?>
+
+    <!-- Scriptlet del contenido del main -->
+    <?!= obtenerDatosHTML("main"); ?>
+
+    <!-- Scriptlet del contenido del footer -->
+    <?!= obtenerDatosHTML("footer"); ?>
+
+    <!-- Scriptlet del contenido js -->
+    <?!= obtenerDatosHTML("js"); ?>
+</body>
+</html>
